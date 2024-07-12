@@ -58,20 +58,20 @@ export const ResumeProvider = ({ children }) => {
   });
 
   const [inputErrors, setInputErrors] = useState({
-    first_name: false,
-    last_name: false,
-    about_me: false,
-    email: false,
-    phone_number: false,
+    first_name: true,
+    last_name: true,
+    about_me: true,
+    email: true,
+    phone_number: true,
 
-    school: false,
-    degree: false,
-    graduation_date: false,
-    description: false,
-    position: false,
-    employer: false,
-    started_at: false,
-    ended_at: false,
+    school: true,
+    degree: true,
+    graduation_date: true,
+    description: true,
+    position: true,
+    employer: true,
+    started_at: true,
+    ended_at: true,
   });
 
   const validateInput = (name, value) => {

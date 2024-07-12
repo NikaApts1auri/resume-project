@@ -1,11 +1,35 @@
 import { Link, NavLink } from "react-router-dom";
-import { useResume } from "../lib/useResume";
+
 import Input from "../components/Input";
 import avatar from "../assets/avatar.jpg";
 import "../index.css";
+import { useContext } from "react";
+import { ResumeContext } from "../ResumeProvider";
 
 const PersonalInfo = () => {
-  const { inputErrors, values } = useResume();
+  const { inputErrors, setInputErrors, values } = useContext(ResumeContext);
+
+  const handleSubmittion = (event) => {
+    event.preventDefault();
+    setInputErrors({
+      first_name: !values.first_name,
+      last_name: !values.last_name,
+      image: !values.image,
+      about_me: !values.about_me,
+      email: !values.email,
+      phone_number: !values.phone_number,
+    });
+    if (
+      !inputErrors.first_name &&
+      !inputErrors.last_name &&
+      !inputErrors.image &&
+      !inputErrors.about_me &&
+      !inputErrors.email &&
+      !inputErrors.phone_number
+    ) {
+      setInputErrors("");
+    }
+  };
 
   return (
     <div>
@@ -117,13 +141,12 @@ const PersonalInfo = () => {
               უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს
             </p>
           </div>
-          <Link
-            to="/experience"
-            as={NavLink}
+          <button
+            onClick={handleSubmittion}
             className="bg-[#6B40E3] text-white py-[14px] px-[35px] rounded-lg absolute right-[160px] bottom-[65px]"
           >
             შემდეგი
-          </Link>
+          </button>
         </div>
 
         <div className="sideBar-container w-[822px] pr-[75px] pl-[80px] flex relative">

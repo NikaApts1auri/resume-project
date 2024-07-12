@@ -1,8 +1,9 @@
-import { useResume } from "../lib/useResume";
+import { useContext } from "react";
 import { useLocation } from "react-router";
+import { ResumeContext } from "../ResumeProvider";
 
 const Input = ({ inputName, name, error }) => {
-  const { values, setValues, validateInput } = useResume();
+  const { values, setValues, validateInput } = useContext(ResumeContext);
   const location = useLocation();
 
   const handleChange = (event) => {

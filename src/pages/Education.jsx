@@ -1,16 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
-import { useResume } from "../lib/useResume.js";
 import Input from "../components/Input";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FormSelect } from "react-bootstrap";
 import avatar from "../assets/avatar.jpg";
 import "../index.css";
-import Resume from "./Resume.jsx";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ResumeContext } from "../ResumeProvider.jsx";
 
 const Education = () => {
-  const { inputErrors, values } = useResume();
+  const { inputErrors, setInputErrors, values } = useContext(ResumeContext);
 
   //აქ ვქმნი სტეიტებს degree-სთვის და graduation_date-ისთვის;
   const [selectedDegree, setSelectedDegree] = useState("");
@@ -23,7 +22,23 @@ const Education = () => {
   const handleDateChange = (event) => {
     setGraduationDate(event.target.value);
   };
-
+  const handleSubmittion = (event) => {
+    event.preventDefault();
+    setInputErrors({
+      school: !values.school,
+      degree: !values.degree,
+      graduation_date: !values.graduation_date,
+      description: !values.description,
+    });
+    if (
+      !inputErrors.school &&
+      !inputErrors.degree &&
+      !inputErrors.graduation_date &&
+      !inputErrors.description
+    ) {
+      setInputErrors("");
+    }
+  };
   return (
     <div className="flex h-screen justify-center items-start">
       <div className="bg-[#F9F9F9] px-[126px] max-w-[1098px] w-full h-screen">
@@ -152,13 +167,12 @@ const Education = () => {
           >
             უკან
           </Link>
-          <Link
-            to="/resume"
-            as={NavLink}
+          <button
+            onClick={handleSubmittion}
             className="bg-[#6B40E3] text-white py-[14px] px-[35px] rounded-lg absolute right-[160px] bottom-[65px]"
           >
             დასრულება
-          </Link>
+          </button>
         </div>
       </div>
       <div className="sideBar-container flex-col w-[822px] flex px-[80px] py-[48px]">

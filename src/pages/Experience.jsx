@@ -1,13 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import { useResume } from "../lib/useResume";
 import avatar from "../assets/avatar.jpg";
 import Input from "../components/Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Education from "./Education";
 import "../index.css";
+import { ResumeContext } from "../ResumeProvider";
 
 const Experience = () => {
-  const { inputErrors, values, setValues } = useResume();
+  const { inputErrors, setInputErrors, values, setValues } =
+    useContext(ResumeContext);
   const [startDate, setStartDate] = useState(values.experience.started_at);
   const [endDate, setEndDate] = useState(values.experience.ended_at);
 
@@ -34,6 +35,26 @@ const Experience = () => {
       ...prevValues,
       experience: { ...prevValues.experience, ended_at: newEndDate },
     }));
+  };
+  // yvela pageze
+  const handleSubmittion = (event) => {
+    event.preventDefault();
+    setInputErrors({
+      position: !values.position,
+      employer: !values.employer,
+      started_at: !values.started_at,
+      ended_at: !values.ended_at,
+      description: !values.description,
+    });
+    if (
+      !inputErrors.position &&
+      !inputErrors.employer &&
+      !inputErrors.started_at &&
+      !inputErrors.ended_at &&
+      !inputErrors.description
+    ) {
+      setInputErrors("");
+    }
   };
 
   return (
@@ -154,13 +175,12 @@ const Experience = () => {
           >
             უკან
           </Link>
-          <Link
-            to="/education"
-            as={NavLink}
+          <button
+            onClick={handleSubmittion}
             className="bg-[#6B40E3] text-white py-[14px] px-[35px] rounded-lg"
           >
             შემდეგი
-          </Link>
+          </button>
         </div>
       </div>
 

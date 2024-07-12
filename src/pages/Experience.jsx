@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.jpg";
 import Input from "../components/Input";
 import { useContext, useState } from "react";
@@ -7,44 +7,28 @@ import "../index.css";
 import { ResumeContext } from "../ResumeProvider";
 
 const Experience = () => {
+  const navigate = useNavigate();
   const { inputErrors, setInputErrors, values, setValues } =
     useContext(ResumeContext);
-  const [startDate, setStartDate] = useState(values.experience.started_at);
-  const [endDate, setEndDate] = useState(values.experience.ended_at);
 
-  // const handleStartDate = (event) => {
-  //   setStartDate(event.target.value);
-  // };
-
-  // const handleEndDate = (event) => {
-  //   setEndDate(event.target.value);
-  // };
-  const handleStartDate = (event) => {
-    const newStartDate = event.target.value;
-    setStartDate(newStartDate);
+  const handleStartDate = (event) => {};
+  const handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
     setValues((prevValues) => ({
       ...prevValues,
-      experience: { ...prevValues.experience, started_at: newStartDate },
+      experience: { ...prevValues.experience, [name]: value },
     }));
   };
 
-  const handleEndDate = (event) => {
-    const newEndDate = event.target.value;
-    setEndDate(newEndDate);
-    setValues((prevValues) => ({
-      ...prevValues,
-      experience: { ...prevValues.experience, ended_at: newEndDate },
-    }));
-  };
-  // yvela pageze
   const handleSubmittion = (event) => {
     event.preventDefault();
     setInputErrors({
-      position: !values.position,
-      employer: !values.employer,
-      started_at: !values.started_at,
-      ended_at: !values.ended_at,
-      description: !values.description,
+      position: !values.experience.position,
+      employer: !values.experience.employer,
+      started_at: !values.experience.started_at,
+      ended_at: !values.experience.ended_at,
+      description: !values.experience.description,
     });
     if (
       !inputErrors.position &&
@@ -53,9 +37,10 @@ const Experience = () => {
       !inputErrors.ended_at &&
       !inputErrors.description
     ) {
-      setInputErrors("");
+      navigate("/education");
     }
   };
+  console.log(inputErrors);
 
   return (
     <div className="flex h-full justify-center items-start">
@@ -84,6 +69,8 @@ const Experience = () => {
           </label>
           <Input
             inputName="position"
+            onChange={handleChange}
+            value={values.experience.position}
             type="text"
             name="position"
             className="mt-[8px] mb-[8px] border border-[#BCBCBC] px-[16px] py-[14px]"
@@ -104,6 +91,8 @@ const Experience = () => {
           </label>
           <Input
             inputName="employer"
+            onChange={handleChange}
+            value={values.experience.employer}
             type="text"
             name="employer"
             className="mt-[8px] mb-[8px] border border-[#BCBCBC] px-[16px] py-[14px]"
@@ -121,8 +110,8 @@ const Experience = () => {
               დაწყების რიცხვი
             </label>
             <input
-              onChange={handleStartDate}
-              value={startDate}
+              onChange={handleChange}
+              value={values.experience.started_at}
               type="date"
               name="started_at"
               className="mt-[8px] border border-[#BCBCBC] px-[16px] py-[14px]"
@@ -136,8 +125,7 @@ const Experience = () => {
               დასრულების რიცხვი
             </label>
             <input
-              onChange={handleEndDate}
-              value={endDate}
+              onChange={handleChange}
               type="date"
               name="ended_at"
               className="mt-[8px] border border-[#BCBCBC] px-[16px] py-[14px]"
@@ -154,6 +142,7 @@ const Experience = () => {
           </label>
           <Input
             inputName="description"
+            onChange={handleChange}
             type="text"
             name="description"
             className="mt-[8px] mb-[8px] border border-[#BCBCBC] w-full px-[16px] py-[14px] min-h-[123px]"

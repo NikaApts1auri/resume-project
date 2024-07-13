@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FormSelect } from "react-bootstrap";
@@ -9,26 +9,25 @@ import { useContext, useState } from "react";
 import { ResumeContext } from "../ResumeProvider.jsx";
 
 const Education = () => {
-  const { inputErrors, setInputErrors, values } = useContext(ResumeContext);
+  const navigate = useNavigate();
+  const { inputErrors, setInputErrors, values, setValues } =
+    useContext(ResumeContext);
 
-  //აქ ვქმნი სტეიტებს degree-სთვის და graduation_date-ისთვის;
-  const [selectedDegree, setSelectedDegree] = useState("");
-  const [graduationDate, setGraduationDate] = useState("");
-
-  //ქვემოთ ვქმნი ფუნქციებს degree-სთვის და graduation_date-;
-  const handleSelectChange = (event) => {
-    setSelectedDegree(event.target.value);
-  };
-  const handleDateChange = (event) => {
-    setGraduationDate(event.target.value);
+  const handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setValues((prevValues) => ({
+      ...prevValues,
+      education: { ...prevValues.education, [name]: value },
+    }));
   };
   const handleSubmittion = (event) => {
     event.preventDefault();
     setInputErrors({
-      school: !values.school,
-      degree: !values.degree,
-      graduation_date: !values.graduation_date,
-      description: !values.description,
+      school: !values.education.school,
+      degree: !values.education.degree,
+      graduation_date: !values.education.graduation_date,
+      description: !values.education.description,
     });
     if (
       !inputErrors.school &&
@@ -36,19 +35,19 @@ const Education = () => {
       !inputErrors.graduation_date &&
       !inputErrors.description
     ) {
-      setInputErrors("");
+      navigate("/resume");
     }
   };
   return (
     <div className="flex h-screen justify-center items-start">
       <div className="bg-[#F9F9F9] px-[126px] max-w-[1098px] w-full h-screen">
         <div className="title-container flex items-center">
-          <Link to="/" as={NavLink}>
+          {/* <Link to="/" as={NavLink}>
             <span>
               {" "}
               <FaAnglesLeft />{" "}
             </span>
-          </Link>{" "}
+          </Link>{" "} */}
           <div className="flex items-center justify-between w-full ml-4">
             <h1 className="text-[#1A1A1A] text-[24px] font-bold">
               გ ა ნ ა თ ლ ე ბ ა
@@ -71,6 +70,8 @@ const Education = () => {
 
             <Input
               type="text"
+              onChange={handleChange}
+              value={values.education.school}
               inputName="school"
               name="school"
               error={inputErrors.school}
@@ -95,8 +96,9 @@ const Education = () => {
               className={`mt-[8px] mb-[8px] border ${
                 inputErrors.degree ? "border-[#EF5050]" : "border-[#98E37E]"
               } px-[16px] py-[14px]`}
-              value={selectedDegree} // Set the value of the select input
-              onChange={handleSelectChange} // Handle change event
+              value={values.education.degree} // Set the value of the select input
+              onChange={handleChange} // Handle change event
+              name="degree"
             >
               <option>აირჩიეთ ხარისხი</option>
               <option value="საშუალო სკოლის დიპლომი">
@@ -136,8 +138,8 @@ const Education = () => {
                   : "border-[#98E37E]"
               } px-[16px] py-[14px]`}
               name="graduation_date"
-              value={graduationDate} // Set the value of the input
-              onChange={handleDateChange} // Handle change event
+              value={values.education.graduation_date} // Set the value of the input
+              onChange={handleChange} // Handle change event
             />
           </div>
         </div>
@@ -151,6 +153,8 @@ const Education = () => {
           </label>
 
           <Input
+            onChange={handleChange}
+            value={values.education.description}
             inputName="description"
             name="description"
             error={inputErrors.description}
@@ -291,10 +295,10 @@ const Education = () => {
                 </p>
 
                 <p className="text-[#000000] font-normal text-[16px]">
-                  {selectedDegree}
+                  {handleChange}
                 </p>
                 <p className="text-[#000000] font-normal text-[16px]">
-                  {graduationDate}
+                  {handleChange}
                 </p>
 
                 <p className="text-[#000000] font-normal text-[16px]">

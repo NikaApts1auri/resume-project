@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.jpg";
 import Input from "../components/Input";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Education from "./Education";
 import "../index.css";
 import { ResumeContext } from "../ResumeProvider";
@@ -11,7 +11,7 @@ const Experience = () => {
   const { inputErrors, setInputErrors, values, setValues } =
     useContext(ResumeContext);
 
-  //to every pages
+  //for every pages
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;

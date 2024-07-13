@@ -25,7 +25,7 @@ const PersonalInfo = () => {
     setInputErrors({
       first_name: !values.general.first_name,
       last_name: !values.general.last_name,
-      email: values.general.email,
+      email: !values.general.email,
       phone_number: !values.general.phone_number,
     });
     if (

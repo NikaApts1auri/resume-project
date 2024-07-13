@@ -1,10 +1,9 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import { FaAnglesLeft } from "react-icons/fa6";
+// import { FaAnglesLeft } from "react-icons/fa6";
 import { FormSelect } from "react-bootstrap";
 import avatar from "../assets/avatar.jpg";
 import "../index.css";
-
 import { useContext, useState } from "react";
 import { ResumeContext } from "../ResumeProvider.jsx";
 

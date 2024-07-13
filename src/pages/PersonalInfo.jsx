@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
 import avatar from "../assets/avatar.jpg";
@@ -7,27 +7,34 @@ import { useContext } from "react";
 import { ResumeContext } from "../ResumeProvider";
 
 const PersonalInfo = () => {
-  const { inputErrors, setInputErrors, values } = useContext(ResumeContext);
+  const navigate = useNavigate();
+  const { inputErrors, setInputErrors, values, setValues } =
+    useContext(ResumeContext);
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setValues((prevValues) => ({
+      ...prevValues,
+      general: { ...prevValues.general, [name]: value },
+    }));
+  };
 
   const handleSubmittion = (event) => {
     event.preventDefault();
     setInputErrors({
-      first_name: !values.first_name,
-      last_name: !values.last_name,
-      image: !values.image,
-      about_me: !values.about_me,
-      email: !values.email,
-      phone_number: !values.phone_number,
+      first_name: !values.general.first_name,
+      last_name: !values.general.last_name,
+      email: values.general.email,
+      phone_number: !values.general.phone_number,
     });
     if (
       !inputErrors.first_name &&
       !inputErrors.last_name &&
-      !inputErrors.image &&
-      !inputErrors.about_me &&
       !inputErrors.email &&
       !inputErrors.phone_number
     ) {
-      setInputErrors("");
+      navigate("/experience");
     }
   };
 
@@ -57,6 +64,8 @@ const PersonalInfo = () => {
                 სახელი
               </label>
               <Input
+                onChange={handleChange}
+                value={values.general.first_name}
                 inputName="first_name"
                 name="first_name"
                 error={inputErrors.first_name}
@@ -75,6 +84,8 @@ const PersonalInfo = () => {
                 გვარი
               </label>
               <Input
+                onChange={handleChange}
+                value={values.general.last_name}
                 inputName="last_name"
                 name="last_name"
                 error={inputErrors.last_name}
@@ -89,14 +100,15 @@ const PersonalInfo = () => {
             >
               პირადი ფოტოს ატვირთვა
             </label>
+            {/* isnot fixed */}
             <input
               type="file"
               id="upload"
               name="photoUpload"
               className="mt-[8px]"
-              onChange={(event) => {
-                const file = event.target.files[0];
-              }}
+              // onChange={(event) => {
+              //   const file = event.target.files[0];
+              // }}
             />
             <label htmlFor="upload">ატვირთვა</label>
           </div>
@@ -107,7 +119,12 @@ const PersonalInfo = () => {
             >
               ჩემ შესახებ (არასავალდებუ ლო)
             </label>
-            <Input inputName="about_me" name="about_me" />
+            <Input
+              inputName="about_me"
+              name="about_me"
+              onChange={handleChange}
+              value={values.general.about_me}
+            />
           </div>
           <div className="email-container mb-[46px]">
             <label
@@ -118,7 +135,13 @@ const PersonalInfo = () => {
             >
               ელ.ფოსტა
             </label>
-            <Input inputName="email" name="email" error={inputErrors.email} />
+            <Input
+              inputName="email"
+              name="email"
+              error={inputErrors.email}
+              onChange={handleChange}
+              value={values.general.email}
+            />
             <p className="font-light text-[16px]">
               უნდა მთავრდებოდეს @redberry.ge-ით
             </p>
@@ -136,6 +159,8 @@ const PersonalInfo = () => {
               inputName="phone_number"
               name="phone_number"
               error={inputErrors.phone_number}
+              onChange={handleChange}
+              value={values.general.phone_number}
             />
             <p className="font-light text-sm">
               უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს

@@ -63,7 +63,6 @@ export const ResumeProvider = ({ children }) => {
     about_me: true,
     email: true,
     phone_number: true,
-
     school: true,
     degree: true,
     graduation_date: true,

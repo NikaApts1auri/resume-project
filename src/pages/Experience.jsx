@@ -11,7 +11,7 @@ const Experience = () => {
   const { inputErrors, setInputErrors, values, setValues } =
     useContext(ResumeContext);
 
-  const handleStartDate = (event) => {};
+  //to every pages
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -40,7 +40,6 @@ const Experience = () => {
       navigate("/education");
     }
   };
-  console.log(inputErrors);
 
   return (
     <div className="flex h-full justify-center items-start">

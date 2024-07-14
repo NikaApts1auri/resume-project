@@ -1,15 +1,29 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
-import avatar from "../assets/avatar.jpg";
 import "../index.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ResumeContext } from "../ResumeProvider";
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
   const { inputErrors, setInputErrors, values, setValues } =
     useContext(ResumeContext);
+  const [image, setImage] = useState();
+
+  // (localStorage.getItem("image")||"")
+
+  const handleAddImage = (event) => {
+    // setImage(event.target.value);
+    // localStorage.setItem("image", event.target.value);
+    const file = event.target.files?.[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+  console.log(image);
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -109,7 +123,9 @@ const PersonalInfo = () => {
               // onChange={(event) => {
               //   const file = event.target.files[0];
               // }}
+              onChange={handleAddImage}
             />
+
             <label htmlFor="upload">ატვირთვა</label>
           </div>
           <div className="aboutInfo-container mb-[46px]">
@@ -209,8 +225,8 @@ const PersonalInfo = () => {
             </div>
             <img
               className="w-[246px] h-[246px] rounded-full absolute top-[46px] right-[75px]"
-              src={avatar}
-              alt="avatar"
+              src={image}
+              alt="preview"
             />
           </div>
         </div>

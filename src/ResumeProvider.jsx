@@ -72,6 +72,16 @@ export const ResumeProvider = ({ children }) => {
     started_at: true,
     ended_at: true,
   });
+  // const [image, setImage] = useState(null);
+
+  // const handleAddImage = (event) => {
+  //   const file = event.target.files?.[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setImage(reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
   const validateInput = (name, value) => {
     let errors = { ...inputErrors };

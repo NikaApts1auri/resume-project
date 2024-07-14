@@ -12,7 +12,9 @@ const Experience = () => {
     useContext(ResumeContext);
 
   //for every pages
+
   const handleChange = (event) => {
+    // localStorage.setItem(name, value);
     const value = event.target.value;
     const name = event.target.name;
     setValues((prevValues) => ({
@@ -207,8 +209,8 @@ const Experience = () => {
           </div>
           <img
             className="w-[246px] h-[246px] rounded-full absolute top-[46px] right-[75px]"
-            src={avatar}
-            alt="avatar"
+            src={Image}
+            alt="preview"
           />
         </div>
         <hr />

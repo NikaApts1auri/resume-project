@@ -9,9 +9,7 @@ const PersonalInfo = () => {
   const navigate = useNavigate();
   const { inputErrors, setInputErrors, values, setValues } =
     useContext(ResumeContext);
-  const [image, setImage] = useState();
-
-  // (localStorage.getItem("image")||"")
+  const [image, setImage] = useState(localStorage.getItem("image") || "");
 
   const handleAddImage = (event) => {
     // setImage(event.target.value);
@@ -20,6 +18,7 @@ const PersonalInfo = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result);
+      localStorage.setItem("image", reader.result);
     };
     reader.readAsDataURL(file);
   };

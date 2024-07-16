@@ -213,8 +213,8 @@ const Education = () => {
           </div>
           <img
             className="w-[246px] h-[246px] rounded-full absolute top-[46px] right-[75px]"
-            src={avatar}
-            alt="avatar"
+            src={localStorage.getItem("image" || "")}
+            alt="preview"
           />
         </div>
         <hr />

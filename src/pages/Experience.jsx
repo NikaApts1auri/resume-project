@@ -8,13 +8,15 @@ import { ResumeContext } from "../ResumeProvider";
 
 const Experience = () => {
   const navigate = useNavigate();
-  const { inputErrors, setInputErrors, values, setValues } =
+  const { inputErrors, setInputErrors, values, setValues, validateInput } =
     useContext(ResumeContext);
 
   //for every pages
 
   const handleChange = (event) => {
+    validateInput(event.target.name, event.target.value);
     // localStorage.setItem(name, value);
+
     const value = event.target.value;
     const name = event.target.name;
     setValues((prevValues) => ({
@@ -25,13 +27,13 @@ const Experience = () => {
 
   const handleSubmittion = (event) => {
     event.preventDefault();
-    setInputErrors({
-      position: !values.experience.position,
-      employer: !values.experience.employer,
-      started_at: !values.experience.started_at,
-      ended_at: !values.experience.ended_at,
-      description: !values.experience.description,
-    });
+    // setInputErrors({
+    //   position: !values.experience.position,
+    //   employer: !values.experience.employer,
+    //   started_at: !values.experience.started_at,
+    //   ended_at: !values.experience.ended_at,
+    //   description: !values.experience.description,
+    // });
     if (
       !inputErrors.position &&
       !inputErrors.employer &&
@@ -209,7 +211,7 @@ const Experience = () => {
           </div>
           <img
             className="w-[246px] h-[246px] rounded-full absolute top-[46px] right-[75px]"
-            src={Image}
+            src={localStorage.getItem("image") || ""}
             alt="preview"
           />
         </div>

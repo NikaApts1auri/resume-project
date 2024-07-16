@@ -1,5 +1,4 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
 import Input from "../components/Input";
 import "../index.css";
 import { useContext, useState } from "react";
@@ -7,13 +6,11 @@ import { ResumeContext } from "../ResumeProvider";
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
-  const { inputErrors, setInputErrors, values, setValues } =
+  const { inputErrors, setInputErrors, values, setValues, validateInput } =
     useContext(ResumeContext);
   const [image, setImage] = useState(localStorage.getItem("image") || "");
 
   const handleAddImage = (event) => {
-    // setImage(event.target.value);
-    // localStorage.setItem("image", event.target.value);
     const file = event.target.files?.[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -25,6 +22,7 @@ const PersonalInfo = () => {
   console.log(image);
 
   const handleChange = (event) => {
+    validateInput(event.target.name, event.target.value);
     const value = event.target.value;
     const name = event.target.name;
     setValues((prevValues) => ({
@@ -35,12 +33,6 @@ const PersonalInfo = () => {
 
   const handleSubmittion = (event) => {
     event.preventDefault();
-    setInputErrors({
-      first_name: !values.general.first_name,
-      last_name: !values.general.last_name,
-      email: !values.general.email,
-      phone_number: !values.general.phone_number,
-    });
     if (
       !inputErrors.first_name &&
       !inputErrors.last_name &&

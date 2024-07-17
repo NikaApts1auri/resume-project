@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaAnglesLeft } from "react-icons/fa6";
-import avatar from "../assets/avatar.jpg";
 import Input from "../components/Input";
 import "../index.css";
 import { useContext } from "react";

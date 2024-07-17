@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import "../index.css";
 import { useContext, useState } from "react";
 import { ResumeContext } from "../ResumeProvider";
+import InputMask from "react-input-mask";
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ const PersonalInfo = () => {
     };
     reader.readAsDataURL(file);
   };
-  console.log(image);
 
   const handleChange = (event) => {
     validateInput(event.target.name, event.target.value);
@@ -28,6 +28,15 @@ const PersonalInfo = () => {
     setValues((prevValues) => ({
       ...prevValues,
       general: { ...prevValues.general, [name]: value },
+    }));
+  };
+
+  const handlePhoneChange = (event) => {
+    validateInput(event.target.name, event.target.value);
+    const input = event.target.value.replace(/\D/g, "").slice(3); // Remove non-digits and the +995 prefix
+    setValues((prevValues) => ({
+      ...prevValues,
+      general: { ...prevValues.general, phone_number: input },
     }));
   };
 
@@ -42,7 +51,12 @@ const PersonalInfo = () => {
       navigate("/experience");
     }
   };
-
+  // const GeorgianNumberInput = ({ onChange, value }) => {
+  //   const handleChange = (e) => {
+  //     const inputValue = e.target.value.replace(/\D/g, "").slice(3); // Remove non-digits and the +995 prefix
+  //     onChange("+995 " + inputValue);
+  //   };
+  // };
   return (
     <div>
       <div className="flex h-screen justify-center items-start">
@@ -111,9 +125,6 @@ const PersonalInfo = () => {
               id="upload"
               name="photoUpload"
               className="mt-[8px]"
-              // onChange={(event) => {
-              //   const file = event.target.files[0];
-              // }}
               onChange={handleAddImage}
             />
 
@@ -153,6 +164,7 @@ const PersonalInfo = () => {
               უნდა მთავრდებოდეს @redberry.ge-ით
             </p>
           </div>
+
           <div className="phone-container mb-[46px]">
             <label
               htmlFor="phone_number"
@@ -162,12 +174,23 @@ const PersonalInfo = () => {
             >
               მობილურის ნომერი
             </label>
-            <Input
+            <InputMask
+              // mask="+995 999 99 99 99"
+              // inputName="phone_number"
+              // name="phone_number"
+              // error={inputErrors.phone_number}
+              // placeholder="5XX XX XX XX"
+              // onChange={handleChange}
+              // value={"+995 " + values.general.phone_number}
+
+              mask="+995 999 99 99 99"
               inputName="phone_number"
               name="phone_number"
               error={inputErrors.phone_number}
-              onChange={handleChange}
-              value={values.general.phone_number}
+              placeholder="+995 5XX XX XX XX"
+              onChange={handlePhoneChange}
+              value={"+995 " + values.general.phone_number}
+              maskChar={null}
             />
             <p className="font-light text-sm">
               უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს

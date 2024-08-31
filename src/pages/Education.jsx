@@ -23,10 +23,11 @@ const Education = () => {
     event.preventDefault();
     if (
       !inputErrors.school &&
-      !inputErrors.degree &&
-      !inputErrors.graduation_date &&
+      !inputErrors.degree && // Check if degree has no errors
+      !inputErrors.graduation_date && // Check if graduation_date has no errors
       !inputErrors.description
     ) {
+      console.log("nika");
       navigate("/resume");
     }
   };
@@ -94,7 +95,7 @@ const Education = () => {
                 <FormSelect
                   aria-label="Default select example"
                   className={`mt-2 mb-2 border ${
-                    inputErrors.degree ? "border-[#EF5050]" : "border-[#98E37E]"
+                    inputErrors.degree ? "border-[#EF5050]" : "border-[#010101]"
                   } px-4 py-3`}
                   value={values.education.degree}
                   onChange={handleChange}
@@ -124,7 +125,7 @@ const Education = () => {
             </div>
 
             <div className="flex flex-col lg:flex-row gap-6 mb-6">
-              <div className="flex flex-col w-full lg:w-1/2">
+              <div className="flex flex-col w-full lg:w-full">
                 <label
                   htmlFor="graduation_date"
                   className={`text-sm font-medium ${
@@ -139,8 +140,8 @@ const Education = () => {
                   type="date"
                   className={`mt-2 mb-2 border ${
                     inputErrors.graduation_date
-                      ? "border-[#EF5050]"
-                      : "border-[#98E37E]"
+                      ? "border-[#EF5050]" // Red border for error
+                      : "border-[#1A1A1A]" // Black border for no error
                   } px-4 py-3`}
                   name="graduation_date"
                   value={values.education.graduation_date}
@@ -149,10 +150,12 @@ const Education = () => {
               </div>
             </div>
 
-            <div className="flex flex-col mb-6">
+            <div className="flex flex-col mb-6 lg:w-1/2">
               <label
                 htmlFor="description"
-                className="text-sm font-medium text-[#1A1A1A]"
+                className={`text-sm font-medium ${
+                  inputErrors.description ? "text-[#EF5050]" : "text-[#1A1A1A]"
+                }`}
               >
                 აღწერა (სავალდებულო)
               </label>
@@ -162,6 +165,15 @@ const Education = () => {
                 inputName="description"
                 name="description"
                 error={inputErrors.description}
+                className={`mt-2 p-3 border ${
+                  inputErrors.description
+                    ? "border-[#EF5050]"
+                    : "border-[#1A1A1A]"
+                } rounded-md focus:outline-none focus:ring-2 ${
+                  inputErrors.description
+                    ? "focus:ring-[#EF5050]"
+                    : "focus:ring-[#1A1A1A]"
+                }`}
               />
             </div>
 
@@ -210,7 +222,7 @@ const Education = () => {
 
           {values.general.about_me && (
             <div className="aboutMe-container mb-8">
-              <h4 className="text-[#F93B1D] font-bold text-lg">ᲩᲔᲝᲡᲐᲨᲔᲑ</h4>
+              <h4 className="text-[#F93B1D] font-bold text-lg">ᲩᲔმს შესახებ</h4>
               <p className="text-[#000000] text-base">
                 {values.general.about_me}
               </p>

@@ -6,96 +6,72 @@ import { useContext } from "react";
 import { ResumeContext } from "../ResumeProvider";
 
 const Resume = ({ selectedDegree, graduationDate }) => {
-  // eslint-disable-next-line no-unused-vars
   const { inputErrors, values } = useContext(ResumeContext);
+  console.log(inputErrors);
 
   return (
-    <div className="flex h-screen justify-center items-start">
-      <div className="bg-[#F9F9F9] px-[126px] max-w-[1098px] w-full h-screen">
-        <div className="title-container flex items-center">
-          <Link to="/" as={NavLink}>
-            <span>
-              {" "}
-              <FaAnglesLeft />{" "}
-            </span>
-          </Link>{" "}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white shadow-md rounded-lg max-w-[1098px] w-full p-8 md:p-16">
+        <div className="flex justify-between items-center mb-8">
+          <Link
+            to="/"
+            as={NavLink}
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <FaAnglesLeft size={24} />
+          </Link>
         </div>
 
-        <div className="sideBar-container w-[822px] flex items-center justify-center">
-          <div>
+        <div className="flex flex-col md:flex-row items-start md:items-center">
+          <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-10">
             <img
-              className="w-[246px] h-[246px] rounded-full   my-[47px]"
+              className="w-48 h-48 md:w-60 md:h-60 rounded-full object-cover"
               src={localStorage.getItem("image" || "")}
               alt="preview"
             />
           </div>
 
-          <div className="name-surname-email-mobile-container">
-            <div>
-              <h1 className="text-[#F93B1D] font-bold text-[34px] mb-[17px] flex gap-[20px] font-face-helvetica leading-10	">
+          <div className="flex-1">
+            <div className="mb-6">
+              <h1 className="text-red-600 font-bold text-2xl md:text-4xl flex flex-wrap gap-4">
                 <p>{values.general.first_name}</p>
                 <p>{values.general.last_name}</p>
               </h1>
-              <p className="text-[#1A1A1A] font-medium text-[18px] font-face-helvetica">
-                {values.general.email ? (
+              <p className="text-gray-800 font-medium text-lg">
+                {values.general.email && (
                   <>
                     <span>@</span> {values.general.email}
                   </>
-                ) : (
-                  ""
                 )}
               </p>
-              <p className="text-[#1A1A1A] font-medium text-[18px]">
-                {values.general.phone_number ? (
+              <p className="text-gray-800 font-medium text-lg">
+                {values.general.phone_number && (
                   <>
                     <span>&#128222;</span> {values.general.phone_number}
                   </>
-                ) : (
-                  ""
                 )}
               </p>
             </div>
-          </div>
 
-          {/*//todo ჩასამატებელია ამ ადგილას ნიკას მიერ გაკეთებული და ნიკას პეიჯიდან მოსული ინფორმაცია*/}
-
-          {/*//ამ ადგილიდან იწყება ჩემს პეიჯზე რაც შეივსება ის ინფორმაცია*/}
-          <div>
-            <div className="school-degree-graduation_date-description-container">
-              <div className="education-container mt-[534px]">
-                <p className="text-[#000000] font-normal text-[16px]">
+            {values.education && (
+              <div>
+                <h4 className="text-red-600 font-bold text-lg md:text-xl mb-2">
+                  განათლება
+                </h4>
+                <p className="text-gray-800 text-base md:text-lg">
+                  {values.education.school}
+                </p>
+                <p className="text-gray-800 text-base md:text-lg">
                   {selectedDegree}
                 </p>
-                <p className="text-[#000000] font-normal text-[16px]">
+                <p className="text-gray-800 text-base md:text-lg">
                   {graduationDate}
                 </p>
-
-                {values.education ? (
-                  <>
-                    <h4 className="text-[#F93B1D] font-bold text-[18px]">
-                      განათლება
-                    </h4>
-                    <p className="text-[#000000] font-normal text-[16px]">
-                      {values.education.school}
-                    </p>
-
-                    {/*// აქ მოდის  degree და რიცხვი კალენდარიდან*/}
-                    <p className="text-[#000000] font-normal text-[16px]">
-                      {selectedDegree}
-                    </p>
-                    <p className="text-[#000000] font-normal text-[16px]">
-                      {graduationDate}
-                    </p>
-
-                    <p className="text-[#000000] font-normal text-[16px]">
-                      {values.education.description}
-                    </p>
-                  </>
-                ) : (
-                  ""
-                )}
+                <p className="text-gray-800 text-base md:text-lg">
+                  {values.education.description}
+                </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

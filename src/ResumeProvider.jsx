@@ -76,6 +76,7 @@ export const ResumeProvider = ({ children }) => {
   const validateInput = (name, value) => {
     const georgianRegex = /^[\u10A0-\u10FF]+$/;
     let errors = { ...inputErrors };
+
     switch (name) {
       case "first_name":
         errors.first_name = value.length < 2 || !georgianRegex.test(value);
@@ -89,7 +90,6 @@ export const ResumeProvider = ({ children }) => {
       case "phone_number":
         errors.phone_number = value.length < 17;
         break;
-      // experience
       case "position":
         errors.position = value.length < 2;
         break;
@@ -101,19 +101,21 @@ export const ResumeProvider = ({ children }) => {
         break;
 
       case "degree":
-        errors.degree = !value;
+        errors.degree = "";
         break;
 
       case "graduation_date":
-        errors.graduation_date = !value;
+        errors.graduation_date = !value || new Date(value) === "Invalid Date";
         break;
 
       case "description":
         errors.description = !value;
         break;
+
       default:
         break;
     }
+
     setInputErrors(errors);
   };
 

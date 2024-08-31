@@ -11,5 +11,6 @@ export default {
     //   6: "48px",
     // },
   },
+
   plugins: [],
 };

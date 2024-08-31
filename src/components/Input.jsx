@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useLocation } from "react-router";
 import { ResumeContext } from "../ResumeProvider";
 
+// eslint-disable-next-line react/prop-types
 const Input = ({ inputName, name, error }) => {
   const { values, setValues, validateInput } = useContext(ResumeContext);
   const location = useLocation();

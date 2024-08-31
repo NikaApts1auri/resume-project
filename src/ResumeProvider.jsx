@@ -19,7 +19,6 @@ export const ResumeContext = createContext({
       description: "",
     },
     education: {
-      //id:1 ,
       school: "",
       degree: "",
       graduation_date: "",
@@ -31,6 +30,7 @@ export const ResumeContext = createContext({
   validateInput: () => {},
 });
 
+// eslint-disable-next-line react/prop-types
 export const ResumeProvider = ({ children }) => {
   const [values, setValues] = useState({
     general: {
@@ -87,7 +87,7 @@ export const ResumeProvider = ({ children }) => {
         errors.email = !value.endsWith("@redberry.ge");
         break;
       case "phone_number":
-        errors.phone_number = value.length < 9;
+        errors.phone_number = value.length < 17;
         break;
       // experience
       case "position":
@@ -97,7 +97,7 @@ export const ResumeProvider = ({ children }) => {
         errors.employer = value.length < 2;
         break;
       case "school":
-        errors.school = !value.length < 2;
+        errors.school = value.length < 2 || !georgianRegex.test(value);
         break;
 
       case "degree":

@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { Link, NavLink } from "react-router-dom";
 import { FaAnglesLeft } from "react-icons/fa6";
-import Input from "../components/Input";
 import "../index.css";
 import { useContext } from "react";
 import { ResumeContext } from "../ResumeProvider";
 
 const Resume = ({ selectedDegree, graduationDate }) => {
+  // eslint-disable-next-line no-unused-vars
   const { inputErrors, values } = useContext(ResumeContext);
 
   return (
@@ -72,7 +73,7 @@ const Resume = ({ selectedDegree, graduationDate }) => {
                 {values.education ? (
                   <>
                     <h4 className="text-[#F93B1D] font-bold text-[18px]">
-                      გ ა ნ ა თ ლ ე ბ ა
+                      განათლება
                     </h4>
                     <p className="text-[#000000] font-normal text-[16px]">
                       {values.education.school}

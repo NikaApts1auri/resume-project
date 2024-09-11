@@ -4,6 +4,7 @@ import { FaAnglesLeft } from "react-icons/fa6";
 import "../index.css";
 import { useContext } from "react";
 import { ResumeContext } from "../ResumeProvider";
+import { MdEmail } from "react-icons/md";
 
 const Resume = ({ selectedDegree, graduationDate }) => {
   const { inputErrors, values } = useContext(ResumeContext);
@@ -40,7 +41,8 @@ const Resume = ({ selectedDegree, graduationDate }) => {
               <p className="text-gray-800 font-medium text-lg">
                 {values.general.email && (
                   <>
-                    <span>@</span> {values.general.email}
+                    <MdEmail />
+                    {values.general.email}
                   </>
                 )}
               </p>

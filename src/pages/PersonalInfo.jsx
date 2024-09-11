@@ -22,6 +22,12 @@ const PersonalInfo = () => {
     reader.readAsDataURL(file);
   };
 
+  localStorage.getItem("first_name", values.general.first_name);
+  localStorage.getItem("last_name", values.general.last_name);
+  localStorage.getItem("about_me", values.general.about_me);
+  localStorage.getItem("email", values.general.email);
+  localStorage.getItem("phone_number", values.general.phone_number);
+
   const handleChange = (event) => {
     validateInput(event.target.name, event.target.value);
     const value = event.target.value;
@@ -210,8 +216,8 @@ const PersonalInfo = () => {
         </button>
       </div>
 
-      <div className="w-full lg:w-1/3 lg:pl-12 flex flex-col items-center lg:items-start">
-        <div className="w-full max-w-md mt-6 lg:mt-0">
+      <div className="w-full lg:w-1/3 lg:pl-12 flex items-center lg:items-start">
+        <div className="w-full max-w-md mt-[2rem] lg:mt-0">
           <div className="text-center lg:text-left">
             <h1 className="text-[#F93B1D] font-bold text-3xl mb-4">
               {values.general.first_name} {values.general.last_name}
@@ -229,16 +235,12 @@ const PersonalInfo = () => {
           </div>
           {values.general.about_me && (
             <div className="mt-6">
-              <h4 className="text-[#F93B1D] font-bold text-xl">ჩემზე</h4>
+              <h4 className="text-[#F93B1D] font-bold text-xl">ჩემს შესახებ</h4>
               <p className="text-black text-lg">{values.general.about_me}</p>
             </div>
           )}
         </div>
-        <img
-          className="w-64 h-64 rounded-full mt-6"
-          src={image}
-          alt="preview"
-        />
+        <img className="w-64 h-64 rounded-full mt-6" src={image} />
       </div>
     </div>
   );

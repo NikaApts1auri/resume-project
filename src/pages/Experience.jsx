@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import { useContext } from "react";
 import "../index.css";
 import { ResumeContext } from "../ResumeProvider";
+import { MdEmail } from "react-icons/md";
 
 const Experience = () => {
   const navigate = useNavigate();
@@ -183,15 +184,15 @@ const Experience = () => {
       </div>
 
       <div className="sideBar-container flex flex-col w-full lg:w-[822px] px-4 sm:px-6 lg:px-[80px] py-8 sm:py-10 lg:py-[48px]">
-        <div className="my-8 lg:my-[47px]">
+        <div className="my-8 flex lg:my-[47px]">
           <div className="flex flex-col">
             <div className="name-surname-email-mobile-container w-full lg:w-[432px] flex flex-col">
               <h1 className="text-[#F93B1D] font-bold text-[22px] lg:text-[34px] mb-4">
                 {values.general.first_name} {values.general.last_name}
               </h1>
               {values.general.email && (
-                <p className="text-[#1A1A1A] text-[16px] lg:text-[18px]">
-                  <span>@</span> {values.general.email}
+                <p className="text-[#1A1A1A] flex items-center gap-[5px] text-[16px] lg:text-[18px]">
+                  <MdEmail /> {values.general.email}
                 </p>
               )}
               {values.general.phone_number && (
@@ -223,7 +224,9 @@ const Experience = () => {
         <hr className="border-[0.8px] border-[#C8C8C8]" />
 
         <div className="experience-infos mt-8 lg:mt-[34px] text-[#1A1A1A]">
-          <h2 className="font-bold text-lg lg:text-[22px]">გამოცდილება</h2>
+          <h2 className="font-bold text-[#F93B1D] text-lg lg:text-[22px]">
+            გამოცდილება
+          </h2>
           <div className="position-employer flex flex-col lg:flex-row gap-2 lg:gap-4 mt-4 lg:mt-6">
             <div className="position-container">
               {values.experience.position && (

@@ -4,6 +4,7 @@ import { FormSelect } from "react-bootstrap";
 import "../index.css";
 import { useContext } from "react";
 import { ResumeContext } from "../ResumeProvider.jsx";
+import { MdEmail } from "react-icons/md";
 
 const Education = () => {
   const navigate = useNavigate();
@@ -21,12 +22,7 @@ const Education = () => {
 
   const handleSubmittion = (event) => {
     event.preventDefault();
-    if (
-      !inputErrors.school &&
-      !inputErrors.degree && // Check if degree has no errors
-      !inputErrors.graduation_date && // Check if graduation_date has no errors
-      !inputErrors.description
-    ) {
+    if (!inputErrors.school && !inputErrors.description) {
       console.log("nika");
       navigate("/resume");
     }
@@ -87,7 +83,7 @@ const Education = () => {
                 <label
                   htmlFor="degree"
                   className={`text-sm font-medium ${
-                    inputErrors.degree ? "text-[#EF5050]" : "text-[#1A1A1A]"
+                    inputErrors.degree ? "text-[#010101]" : "text-[#1A1A1A]"
                   }`}
                 >
                   ხარისხი
@@ -95,8 +91,8 @@ const Education = () => {
                 <FormSelect
                   aria-label="Default select example"
                   className={`mt-2 mb-2 border ${
-                    inputErrors.degree ? "border-[#EF5050]" : "border-[#010101]"
-                  } px-4 py-3`}
+                    inputErrors.degree ? "border-[#010101]" : "border-[#010101]"
+                  } px-4 py-[1rem]`}
                   value={values.education.degree}
                   onChange={handleChange}
                   id="degree"
@@ -130,7 +126,7 @@ const Education = () => {
                   htmlFor="graduation_date"
                   className={`text-sm font-medium ${
                     inputErrors.graduation_date
-                      ? "text-[#EF5050]"
+                      ? "text-[#010101]"
                       : "text-[#1A1A1A]"
                   }`}
                 >
@@ -140,9 +136,9 @@ const Education = () => {
                   type="date"
                   className={`mt-2 mb-2 border ${
                     inputErrors.graduation_date
-                      ? "border-[#EF5050]" // Red border for error
+                      ? "border-[#010101" // Red border for error
                       : "border-[#1A1A1A]" // Black border for no error
-                  } px-4 py-3`}
+                  } px-4 py-[1rem]`}
                   name="graduation_date"
                   value={values.education.graduation_date}
                   onChange={handleChange}
@@ -150,7 +146,7 @@ const Education = () => {
               </div>
             </div>
 
-            <div className="flex flex-col mb-6 lg:w-1/2">
+            <div className="flex flex-col mb-6 lg:w-full mw-[758px]">
               <label
                 htmlFor="description"
                 className={`text-sm font-medium ${
@@ -165,7 +161,7 @@ const Education = () => {
                 inputName="description"
                 name="description"
                 error={inputErrors.description}
-                className={`mt-2 p-3 border ${
+                className={`mt-2 mw-[758px] p-3 border ${
                   inputErrors.description
                     ? "border-[#EF5050]"
                     : "border-[#1A1A1A]"
@@ -199,25 +195,27 @@ const Education = () => {
       {/* Sidebar */}
       <div className="sideBar-container flex flex-col w-full lg:w-1/3 p-6 lg:p-12">
         <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center mb-8">
+          <div className="flex items-center mb-8">
             <img
               className="w-60 h-60 rounded-full"
               src={localStorage.getItem("image") || ""}
-              alt="preview"
+              alt=""
             />
             <h1 className="text-[#F93B1D] font-bold text-2xl mt-4">
               {values.general.first_name} {values.general.last_name}
             </h1>
-            {values.general.email && (
-              <p className="text-[#1A1A1A] text-lg">
-                <span>@</span> {values.general.email}
-              </p>
-            )}
-            {values.general.phone_number && (
-              <p className="text-[#1A1A1A] text-lg">
-                <span>&#128222;</span> {values.general.phone_number}
-              </p>
-            )}
+            <div>
+              {values.general.email && (
+                <p className="text-[#1A1A1A] text-lg flex items-center gap-[5px]">
+                  <MdEmail /> {values.general.email}
+                </p>
+              )}
+              {values.general.phone_number && (
+                <p className="text-[#1A1A1A] text-lg gap-[5px]">
+                  <span>&#128222;</span> {values.general.phone_number}
+                </p>
+              )}
+            </div>
           </div>
 
           {values.general.about_me && (

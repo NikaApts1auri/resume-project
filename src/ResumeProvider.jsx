@@ -97,16 +97,17 @@ export const ResumeProvider = ({ children }) => {
         errors.employer = value.length < 2;
         break;
       case "school":
-        errors.school = value.length < 2 || !georgianRegex.test(value);
+        // errors.school = value.length < 2 || !georgianRegex.test(value);
+        errors.school = value.length < 2 || "";
         break;
 
-      case "degree":
-        errors.degree = "";
-        break;
+      // case "degree":
+      //   errors.degree = "";
+      //   break;
 
-      case "graduation_date":
-        errors.graduation_date = !value || new Date(value) === "Invalid Date";
-        break;
+      // case "graduation_date":
+      //   errors.graduation_date = !value || new Date(value) === "Invalid Date";
+      //   break;
 
       case "description":
         errors.description = !value;
